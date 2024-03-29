@@ -23,10 +23,10 @@ func main() {
 	}
 
 	//Criando o template
-	tmp := template.New("template.html")
+	tmp := template.New("content.html")
 
 	//Html do template usando Parse
-	tmp, err := tmp.ParseFiles("template.html")
+	tmp, err := tmp.ParseFiles("content.html")
 	if err != nil {
 		panic(err)
 	}
