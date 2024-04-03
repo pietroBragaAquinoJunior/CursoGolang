@@ -15,7 +15,7 @@ type Product struct {
 
 func main() {
 
-	//Abrinco conexão mysql
+	//Abrindo conexão mysql
 	db, err := sql.Open("mysql", "root:172983456@/teste")
 	if err != nil {
 		panic(err)
@@ -51,6 +51,14 @@ func main() {
 	}
 	for _, p := range products {
 		fmt.Printf("Product: %v, possui o preço de %.2f \n", p.Name, p.Price)
+	}
+
+	//Testando deletar Produto
+	for _, p3 := range products {
+		err := deleteProduct(db, p3.ID)
+		if err != nil {
+			panic(err)
+		}
 	}
 
 }
@@ -156,5 +164,27 @@ func selectAllProducts(db *sql.DB) ([]Product, error) {
 
 	//Retornando produtos sem erro
 	return products, nil
+
+}
+
+func deleteProduct(db *sql.DB, id string) error {
+
+	//Preparando Statement
+	stmt, err := db.Prepare("delete from products where id = ?")
+	if err != nil {
+		return err
+	}
+
+	//Fechando statement
+	defer stmt.Close()
+
+	//Executa o statement passando o id
+	_, err = stmt.Exec(id)
+	if err != nil {
+		return err
+	}
+
+	//Não retorna erro se deu tudo certo
+	return nil
 
 }

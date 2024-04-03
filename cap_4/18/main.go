@@ -11,7 +11,7 @@ import (
 // Trabalhando com Timeout
 func main() {
 
-	//Definindo o timeout do http.client como 1 segundo
+	//Definindo o timeout do http.client como sql segundo
 	c := http.Client{
 		Timeout: time.Second,
 	}
